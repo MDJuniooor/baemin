@@ -1,3 +1,9 @@
+from django.views.generic import ListView, DetailView
 from django.shortcuts import render
+from .models import Category
 
-# Create your views here.
+
+index = ListView.as_view(model=Category)
+
+
+category_detail =DetailView.as_view(model=Category)
