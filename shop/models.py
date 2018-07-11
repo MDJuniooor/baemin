@@ -33,11 +33,12 @@ class Item(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     desc = models.TextField(blank=True)
     amount = models.PositiveIntegerField()
-    
-    photo = models.ImageField(blank=True)
-    rating = models.SmallIntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)])
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE, null=True)
+    photo = models.ImageField(blank=True, null=True)
+    rating = models.SmallIntegerField(validators=[MinValueValidator(1),MaxValueValidator(5)], default=1, null=True,blank=True)
     is_public = models.BooleanField(default=False, db_index=True)
-
+    meta = JSONField(blank=True) # Postgre의 Jsonb 타입과 다르다
+    
     def __str__(self):
         return self.name
 

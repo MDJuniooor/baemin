@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'shop',
-    'jsonfield',   
+    'jsonfield',
+    'fake_useragent',
 ]
 
 MIDDLEWARE = [

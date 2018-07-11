@@ -17,8 +17,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Shop)
 class ShopAdmin(admin.ModelAdmin):
-    list_display = ['name','address_link']
-
+    list_display = ['category','name', 'address_link']
+    list_display_links = ['name',]
+    list_filter = ['category']
     def address_link(self, shop):
         if shop.address:
             url='http://maps.naver.com/?query=' + quote(shop.address)
@@ -29,4 +30,7 @@ class ShopAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['shop','name']
+    list_display_links = ['name']
+    list_filter = ['shop']
+    search_fields = ['name']
