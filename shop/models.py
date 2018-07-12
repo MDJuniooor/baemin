@@ -1,4 +1,5 @@
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.urls import reverse
 from django.conf import settings
 from django.db import models
 from jsonfield import JSONField
@@ -8,9 +9,13 @@ class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     icon = models.ImageField(blank=True)
     is_public = models.BooleanField(default=False, db_index=True)
-    
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('shop:category_detail', args=[self.pk])
+
 
 class Shop(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -23,6 +28,10 @@ class Shop(models.Model):
     
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('shop:shop_detail', args=[self.pk])
+
 
     @property
     def address(self):
