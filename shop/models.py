@@ -55,7 +55,10 @@ class Review(models.Model):
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
+    photo = models.ImageField(blank=True, null=True)
+    rating = models.SmallIntegerField(validators=[MinValueValidator(
+        1), MaxValueValidator(5)], null=True, blank=True)
+    message = models.TextField(null=True)
     def __str__(self):
         return self.author
 
