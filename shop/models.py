@@ -60,7 +60,7 @@ class Review(models.Model):
         1), MaxValueValidator(5)], null=True, blank=True)
     message = models.TextField(null=True)
     def __str__(self):
-        return self.author
+        return self.message
 
 #class Order(models.Model):
 #    pass

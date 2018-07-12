@@ -1,4 +1,5 @@
 {% extends "shop/layout.html" %} 
+
     {% load humanize %}
 {% block content %}
 <div class="container">
@@ -21,6 +22,21 @@
                     {% endfor%}
                 </tbody>
             </table>
+
+            <h3>리뷰</h3>
+            <a href="{% url "shop:review_new" shop.pk %}" class="btn btn-primary">리뷰 쓰기</a>
+            {% for review in shop.review_set.all %}
+            <div class="media text-muted pt-3">
+                {% if review.photo %}
+                <img src="{{review.photo.url}}" style="width: 32px; height: 32px;" alt="" class="mr-2 rounded"/> 
+                {% endif %}
+                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <strong class="d-block text-gray-dark">@{{ review.author}}</strong>
+                     {{ review.message}}
+                </p>
+            </div>           
+            {% endfor%}
+            
         </div>
     </div>
 </div>    
