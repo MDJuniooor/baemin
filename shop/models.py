@@ -67,5 +67,17 @@ class Review(models.Model):
         return self.message
 
 
-#class Order(models.Model):
-#    pass
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    amount = models.PositiveIntegerField()
+    address = models.CharField(max_length=100)
+    phone = models.CharField(max_length=11)
+
+class OrderItem(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    # amount
+    @property
+    def amount(self):
+        return self.quantity * self.item.amount
