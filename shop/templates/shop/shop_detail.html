@@ -1,29 +1,32 @@
 {% extends "shop/layout.html" %} 
     {% load humanize %}
 {% block content %}
-<ul>
-    <h2>{{shop.name}}</h2>
-
-    <table>
-        <tbody>           
-            {% for item in shop.item_set.all %}
-                <tr>
-                <td>
-                    {% if item.photo %}
-                        <img src= "{{item.photo.url}}" style="width: 144px;"/>
-                    {% endif %}
-                </td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.desc }}</td>
-                <td>{{ item.amount|intcomma }}</td>
-                <td>{{ item.is_public }}</td>
-             </tr>
-            {% endfor%}
-        </tbody>
-    </table>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>{{shop.name}}</h2>
+            
+            <table class="table table-bordered table-hover">
+                <tbody>
+                    {% for item in shop.item_set.all %}
+                    <tr>
+                        <td>
+                            {% if item.photo %}
+                            <img src="{{item.photo.url}}" style="width: 144px;" /> {% endif %}
+                        </td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.amount|intcomma }}</td>
+                        <td>{{ item.is_public }}</td>
+                    </tr>
+                    {% endfor%}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>    
     <hr/>
     <!-- <a href ="{{ shop.category.get_absolute_url}}">{{shop.category.name}} 카테고리로</a> -->
-    <a href="{% url "shop:index"%}">대문</a>
+    <a href="{% url "shop:index" %}">대문</a>
     <a href="{{ shop.category.get_absolute_url}}">{{shop.category.name}} 카테고리로</a>
 </ul>
 {% endblock %}
