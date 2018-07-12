@@ -7,8 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>요기요 st with 대성</title>
     <link rel="stylesheet" href= "{% static "bootstrap-4.1.1/css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src="{% static "jquery-3.3.1.min.js"%}"></script>
     <script src="{% static "bootstrap-4.1.1/js/bootstrap.min.js" %}"></script>
+    <script src="{% static "underscore-min.js" %}"></script>
 </head>
 <body>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
@@ -33,6 +35,8 @@
         
     {% block content %}
     {% endblock %}
+    {% block extra-body %}
+    {% endblock%}
     </hr>
     <div class='container'>
         <div class='row'>
@@ -43,4 +47,4 @@
     </div>
 
 </body>
-</html>}
+</html>

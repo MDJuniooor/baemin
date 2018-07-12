@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, CreateView
-from django.shortcuts import render, get_object_or_404
-from .models import Category, Shop, Review
-from .forms import ReviewForm
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Category, Shop, Review, Item, OrderItem, Order
+from .forms import ReviewForm, OrderForm
 
 index = ListView.as_view(model=Category)
 
@@ -28,5 +29,49 @@ class ReviewCreateView(LoginRequiredMixin ,CreateView):
 
 review_new = ReviewCreateView.as_view()
 
+@login_required
+def order_new(request, shop_pk):
+    item_qs = Item.objects.filter(shop__pk=shop_pk, id__in=request.GET.keys())
 
+    quantity_dict = request.GET.dict()
+    quantity_dict = { int(k): int(v) for k, v in quantity_dict.items()}
+
+    item_order_list = []
+    for item in item_qs:
+        quantity = quantity_dict[item.pk]
+        order_item = OrderItem(quantity=quantity, item=item)
+        item_order_list.append(order_item)
+
+    amount = sum(order_item.amount for order_item in item_order_list)
+    instance = Order(amount=amount)
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=instance)
+        
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.user = request.user
+            order.save()
+            
+            for order_item in item_order_list:
+                order_item.order = order
+            OrderItem.objects.bulk_create(item_order_list)
+
+            return redirect('shop:order_pay', shop_pk, order.pk)
+    else:
+        form = OrderForm(instance=instance)
     
+    return render(request, 'shop/order_form.html',{
+        'item_order_list': item_order_list,
+        'form': form,
+    })
+    
+
+def order_pay(request, shop_pk, pk):
+    order= get_object_or_404(Order, user=request.user, pk=pk)
+    return render(request, 'shop/order_pay.html',{
+        'order':order
+    })
+
+def order_detail(request, shop_pk, pk):
+    pass
