@@ -33,14 +33,15 @@
          
     </div>
         
-    {% block content %}
-    {% endblock %}
-    {% block extra-body %}
-    {% endblock%}
+    
     </hr>
     <div class='container'>
         <div class='row'>
             <div class="col-sm-12">
+                {% block content %}
+                {% endblock %}
+                {% block extra-body %}
+                {% endblock%}
                 &copy; 2018. DaeSung
             </div>
         </div>

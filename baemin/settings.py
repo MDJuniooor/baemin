@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'accounts',
     'jsonfield',
     'fake_useragent',
+    'iamport',
+    'pytz',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +138,7 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 NAVER_MAP_CLIENT_ID = 'Jxy13M6OjqW6JCkgOAJI'
+
+IAMPORT_SHOP_ID = 'imp08202813'
+IAMPORT_API_KEY = '0485591399622644'
+IAMPORT_API_SECRET = 'd4c3YRZ2lQyVNIiJFXXYDmrIbEJswRMKVYOUPOWbEv7rdpbSm8QZuiIGXs9ujVeeU28KQ5VuA3WOs7HO'
