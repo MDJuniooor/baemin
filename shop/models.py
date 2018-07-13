@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.conf import settings
 from django.db import models
 from jsonfield import JSONField
+from .payment import BaseOrder
 import json
 
 class Category(models.Model):
@@ -67,9 +68,7 @@ class Review(models.Model):
         return self.message
 
 
-class Order(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    amount = models.PositiveIntegerField()
+class Order(BaseOrder):
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=11)
 
