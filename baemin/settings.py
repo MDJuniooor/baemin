@@ -25,7 +25,7 @@ SECRET_KEY = '_(etwv(h2xis&x6rk(=ciy3-(_3s-q*7n2(!x6i6k91+h$gylv'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -136,7 +136,7 @@ STATICFILES_DIRS = [
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 NAVER_MAP_CLIENT_ID = 'Jxy13M6OjqW6JCkgOAJI'
 
 IAMPORT_SHOP_ID = 'imp08202813'
